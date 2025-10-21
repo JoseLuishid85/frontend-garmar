@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import { SidebarProvider } from './contexts/SidebarContext'; // 👈 Nuevo
+import ProtectedRoute from './components/layout/ProtectedRoute';
+import Navbar from './components/layout/Navbar';
+import Sidebar from './components/layout/Sidebar'; // 👈 Nuevo
+
+// Páginas
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import CompaniesPage from './pages/CompaniesPage';
+import DebtsPage from './pages/DebtsPage';
+import DebtSummaryPage from './pages/DebtSummaryPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <SidebarProvider> {/* 👈 Envuelve aquí */}
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/*"
+              element={
+                <ProtectedRoute>
+                  <Navbar />
+                  <Sidebar /> {/* 👈 Sidebar aquí */}
+                  <div style={{ paddingTop: '30px' }}>
+                    <Routes>
+                      <Route path="/dashboard" element={<Dashboard />} />
+                      <Route path="/companies" element={<CompaniesPage />} />
+                      <Route path="/debts" element={<DebtsPage />} />
+                      <Route path="/debts/company/:companyId/summary" element={<DebtSummaryPage />} />
+                      <Route path="*" element={<Dashboard />} />
+                    </Routes>
+                  </div>
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </SidebarProvider>
+    </AuthProvider>
   );
 }
 
