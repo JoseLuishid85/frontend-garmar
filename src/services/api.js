@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://joseluishidalgo.com/liqueur/api',
+  baseURL: 'https://joseluishidalgo.com/licor/api',
   headers: {
     'Content-Type': 'application/json',
   },
