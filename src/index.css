@@ -99,58 +99,42 @@ body {
 
 :root {
   --color-primary: #1d4ed8;
-  /* blue-700 */
   --color-primary-dark: #1e40af;
-  /* blue-800 */
   --color-background: #f3f4f6;
-  /* gray-100 */
   --color-card-bg: #ffffff;
   --color-text-dark: #1f2937;
-  /* gray-800 */
   --color-text-medium: #6b7280;
-  /* gray-500 */
   --color-pending: #dc2626;
-  /* red-600 */
   --color-paid: #059669;
-  /* green-600 */
 }
 
 .app-container {
   min-height: 100vh;
   background-color: var(--color-background);
   padding: 16px;
-  /* p-4 */
   font-family: 'Inter', sans-serif;
 }
 
 .header-title {
   font-size: 1.875rem;
-  /* text-3xl */
   font-weight: 800;
-  /* font-extrabold */
   color: var(--color-primary);
   margin-bottom: 1.5rem;
-  /* mb-6 */
   text-align: center;
 }
 
 .max-width-container {
   max-width: 44rem;
-  /* max-w-4xl */
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Tarjeta de Resumen Total */
 .summary-card {
   background-color: var(--color-primary);
   color: var(--color-card-bg);
   padding: 1.5rem;
-  /* p-6 */
   border-radius: 0.75rem;
-  /* rounded-xl */
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  /* shadow-lg */
   margin-bottom: 1.5rem;
   display: flex;
   justify-content: space-between;
@@ -159,15 +143,12 @@ body {
 
 .summary-text-sm {
   font-size: 0.875rem;
-  /* text-sm */
   opacity: 0.8;
 }
 
 .summary-balance {
   font-size: 2.25rem;
-  /* text-4xl */
   font-weight: 900;
-  /* font-black */
 }
 
 .summary-badge {
@@ -178,24 +159,18 @@ body {
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
   display: none;
-  /* hidden sm:block */
 }
 
-/* Lista de Deudas */
 .debt-list {
   display: grid;
   gap: 1rem;
-  /* gap-4 */
 }
 
-/* Tarjeta de Deuda Individual */
 .debt-card {
   padding: 1rem;
-  /* p-4 */
   background-color: var(--color-card-bg);
   border-radius: 0.75rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  /* shadow-lg */
   border-left-width: 4px;
   border-left-style: solid;
   transition: box-shadow 0.3s ease-in-out;
@@ -203,7 +178,7 @@ body {
 
 .debt-card:hover {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  /* hover:shadow-xl */
+
 }
 
 .border-pending {
@@ -214,7 +189,6 @@ body {
   border-left-color: var(--color-paid);
 }
 
-/* Cabecera de la Tarjeta */
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -222,7 +196,6 @@ body {
   margin-bottom: 0.75rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid #f3f4f6;
-  /* border-gray-100 */
 }
 
 .header-details {
@@ -233,25 +206,20 @@ body {
 
 .company-name {
   font-size: 0.75rem;
-  /* text-xs */
   font-weight: 500;
   color: var(--color-text-medium);
   text-transform: uppercase;
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .debt-description {
   font-size: 1.125rem;
-  /* text-lg */
   font-weight: 700;
-  /* font-bold */
   color: var(--color-text-dark);
   line-height: 1.25;
 }
 
-/* Balance (Debe) */
 .balance-section {
   text-align: right;
 }
@@ -264,7 +232,6 @@ body {
 
 .balance-value {
   font-size: 1.25rem;
-  /* text-xl */
   font-weight: 800;
 }
 
@@ -276,19 +243,16 @@ body {
   color: var(--color-paid);
 }
 
-/* Cuerpo de la Tarjeta (Detalles) */
 .detail-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.5rem;
-  /* gap-y-2 */
   font-size: 0.875rem;
   color: var(--color-text-dark);
 }
 
 .detail-label {
   font-weight: 600;
-  /* font-semibold */
   color: var(--color-text-medium);
 }
 
@@ -302,7 +266,6 @@ body {
   font-weight: 700;
 }
 
-/* Sección de Acción */
 .action-section {
   margin-top: 1rem;
   padding-top: 0.75rem;
@@ -313,15 +276,12 @@ body {
 
 .pay-button {
   padding: 0.625rem 1.25rem;
-  /* px-5 py-2 */
   background-color: var(--color-primary);
   color: var(--color-card-bg);
   font-weight: 600;
   border: none;
   border-radius: 9999px;
-  /* rounded-full */
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  /* shadow-md */
   cursor: pointer;
   transition: background-color 0.15s, box-shadow 0.15s;
 }
@@ -335,14 +295,12 @@ body {
   font-size: 0.875rem;
   color: var(--color-paid);
   background-color: #d1fae5;
-  /* green-100 */
   border-radius: 9999px;
   font-weight: 700;
 }
 
 @media (min-width: 640px) {
 
-  /* sm breakpoint */
   .summary-badge {
     display: block;
   }
