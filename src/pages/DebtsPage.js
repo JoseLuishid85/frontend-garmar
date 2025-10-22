@@ -38,20 +38,28 @@ const DebtsPage = () => {
   };
 
   const totalAmountSum = debts.reduce((sum, debt) => sum + parseFloat(debt.summary.balance || 0), 0);
+  const totalBalanceSum = debts.reduce((sum, debt) => sum + debt.summary.balance, 0);
+
+  const formatCurrency = (amount) => {
+    return parseFloat(amount).toLocaleString('es-ES', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  };
+
+
 
   return (
     <div className="container" style={{ paddingTop: '5px', paddingBottom: '20px' }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '20px' }}>
         {
-        <button
-          className="btn btn-success"
-          onClick={() => setShowForm(true)}
-        >
-          + Agregar deuda
-        </button>
+          <button
+            className="btn btn-success"
+            onClick={() => setShowForm(true)}
+          >
+            + Agregar deuda
+          </button>
         }
-
-        <h2 className="header">Lista de Deudas</h2>
 
       </div>
 
@@ -66,85 +74,109 @@ const DebtsPage = () => {
           />
         </div>
       ) : (
-        <div style={{ overflowX: 'auto' }}> {/* Contenedor para manejar tablas anchas en móviles */}
-          {debts.length === 0 ? (
-            <p style={{ textAlign: 'center', color: '#6b7280' }}>No hay deudas registradas.</p>
-          ) : (
-            
-            <table style={{
-              width: '100%',
-              borderCollapse: 'collapse', // Asegura bordes limpios
-              marginBottom: '20px',
-              boxShadow: '0 2px 3px rgba(0,0,0,0.1)' // Sombra ligera para destacar
-            }}>
-              <thead>
-                <tr style={{ backgroundColor: '#f4f4f4' }}> {/* Fondo para la cabecera */}
-                  <th style={{ padding: '10px', border: '1px solid #ddd', textAlign: 'left' }}>Descripción</th>
-                  <th style={{ padding: '10px', border: '1px solid #ddd', textAlign: 'left' }}>Empresa</th>
-                  <th style={{ padding: '10px', border: '1px solid #ddd', textAlign: 'right' }}>Monto</th>
-                  <th style={{ padding: '10px', border: '1px solid #ddd', textAlign: 'right' }}>Pagado</th>
-                  <th style={{ padding: '10px', border: '1px solid #ddd', textAlign: 'right' }}>Debe</th>
-                  <th style={{ padding: '10px', border: '1px solid #ddd', textAlign: 'left' }}>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                
-                {debts.map((debt, index) => (
-                  <tr
-                    key={debt.id}
-                    style={{
-                      backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9f9f9',
-                      transition: 'background-color 0.3s'
-                    }}
-                  >
-                    
-                    <td style={{ padding: '10px', border: '1px solid #eee' }}>{debt.description || 'Factura sin descripción'}</td>  
-                    <td style={{ padding: '10px', border: '1px solid #eee' }}>{debt.company.name}</td>
-                    <td style={{ padding: '10px', border: '1px solid #eee', textAlign: 'right' }}>
-                      {parseFloat(debt.totalAmount).toLocaleString('es-ES', { minimumFractionDigits: 2 })}
-                    </td>
-                    <td style={{ padding: '10px', border: '1px solid #eee', textAlign: 'right' }}>
-                      {parseFloat(debt.summary.totalPaid).toLocaleString('es-ES', { minimumFractionDigits: 2 })}
-                    </td>
-                    <td style={{ padding: '10px', border: '1px solid #eee', textAlign: 'right' }}>
-                      {parseFloat(debt.summary.balance).toLocaleString('es-ES', { minimumFractionDigits: 2 })}
-                    </td>
-                    <td style={{ padding: '10px', border: '1px solid #eee' }}>
-                      <button
-                        style={{
-                          padding: '5px 10px',
-                          backgroundColor: '#007bff', 
-                          color: 'white',
-                          border: 'none',
-                          borderRadius: '4px',
-                          cursor: 'pointer'
-                        }}
-                        onClick={() => navigate(`/debts/company/${debt.company.id}/summary`)}
-                      >
-                        Pagar
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+        <div className="app-container">
+          <h1 className="header-title">
+            Lista de Deudas
+          </h1>
 
-                <tr style={{
-                  backgroundColor: '#e6f7ff', 
-                  borderTop: '3px solid #007bff' 
-                }}>
-                  <td colSpan="4" style={{ fontWeight: 'bold', padding: '10px', border: '1px solid #eee' }}>Total General</td>
-                  <td style={{ fontWeight: 'bolder', textAlign: 'right', padding: '10px', border: '1px solid #eee', color: '#0056b3' }}>
-                    
-                    {totalAmountSum.toLocaleString('es-ES', { minimumFractionDigits: 2 })}
-                  </td>
-                  <td style={{ padding: '10px', border: '1px solid #eee' }}></td>
-                </tr>
-              </tbody>
-            </table>
+          {debts.length === 0 ? (
+            <div className="p-6 bg-white rounded-xl shadow-md text-center text-gray-500 max-w-xl mx-auto">
+              No hay deudas registradas.
+            </div>
+          ) : (
+            <div className="max-width-container">
+
+              {/* Resumen Total General */}
+              <div className="summary-card">
+                <div>
+                  <p className="summary-text-sm">Total Pendiente a Pagar</p>
+                  <h2 className="summary-balance">
+                    {formatCurrency(totalAmountSum)}
+                  </h2>
+                </div>
+                <span className="summary-badge">
+                  {debts.length} Deudas Activas
+                </span>
+              </div>
+
+              {/* Lista de Deudas (Vista de Tarjeta Única para todos los dispositivos) */}
+              <div className="debt-list">
+                {debts.map((debt) => {
+                  const isPaid = debt.summary.balance <= 0;
+                  const balanceColorClass = isPaid ? 'text-paid' : 'text-pending';
+                  const borderColorClass = isPaid ? 'border-paid' : 'border-pending';
+
+                  return (
+                    <div
+                      key={debt.id}
+                      className={`debt-card ${borderColorClass}`}
+                    >
+                      {/* CABECERA - DESCRIPCIÓN Y BALANCE (LO MÁS IMPORTANTE) */}
+                      <div className="card-header">
+                        <div className="header-details">
+                          <p className="company-name">
+                            {debt.description || 'Factura sin descripción'}
+                          </p>
+                          <h2 className="debt-description">
+                            {debt.company.name}
+                          </h2>
+                        </div>
+
+                        {/* BALANCE A PAGAR - Destacado */}
+                        <div className="balance-section">
+                          <p className="balance-label">
+                            {isPaid ? 'Pagado' : 'Pendiente'}
+                          </p>
+                          <span className={`balance-value ${balanceColorClass}`}>
+                            {formatCurrency(debt.summary.balance)}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* CUERPO - DETALLES DE MONTO Y PAGADO */}
+                      <div className="detail-grid">
+
+                        {/* Monto Total */}
+                        <div className="detail-label">Monto Total:</div>
+                        <div className="detail-value">
+                          {formatCurrency(debt.totalAmount)}
+                        </div>
+
+                        {/* Monto Pagado - Destacado */}
+                        <div className="detail-label">Monto Pagado:</div>
+                        <div className="detail-value paid-value">
+                          {formatCurrency(debt.summary.totalPaid)}
+                        </div>
+                      </div>
+
+                      {/* ACCIÓN */}
+                      <div className="action-section">
+                        {!isPaid && (
+                          <button
+                            className="pay-button"
+                            onClick={() => navigate(`/debts/company/${debt.company.id}/summary`)}
+                          >
+                            Pagar Ahora
+                          </button>
+                        )}
+                        {isPaid && (
+                          <span className="paid-status-tag">
+                            Deuda Saldada
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           )}
         </div>
       )}
     </div>
   );
+
+
 };
 
 export default DebtsPage;
