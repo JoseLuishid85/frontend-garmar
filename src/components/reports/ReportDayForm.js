@@ -82,7 +82,8 @@ const ReportDayForm = ({ onSave, onCancel }) => {
                 pointSaleDollar,
                 paymentMobil,
                 paymentMobilDollar,
-                day
+                day,
+                totalDollar
             });
 
             // 💡 Limpiar estados después de guardar exitosamente (opcional)
