@@ -93,6 +93,36 @@ const Sidebar = () => {
           >
             📄 Deudas
           </Link>
+          <Link
+            to="/reports/create" 
+            onClick={closeSidebar}
+            style={{
+              display: 'block',
+              padding: '14px 16px',
+              textDecoration: 'none',
+              color: '#1e293b',
+              borderRadius: '8px',
+              marginBottom: '8px',
+              fontSize: '16px'
+            }}
+          >
+            📈 Crear Reporte Diario 
+          </Link>
+          <Link
+            to="/reports" 
+            onClick={closeSidebar}
+            style={{
+              display: 'block',
+              padding: '14px 16px',
+              textDecoration: 'none',
+              color: '#1e293b',
+              borderRadius: '8px',
+              marginBottom: '8px',
+              fontSize: '16px'
+            }}
+          >
+            📅 Reporte Mensual 
+          </Link>
         </nav>
       </div>
     </>

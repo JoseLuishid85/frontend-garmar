@@ -1,4 +1,15 @@
 /* src/index.css */
+
+:root {
+  --color-primary: #1d4ed8;
+  --color-primary-dark: #1e40af;
+  --color-background: #f3f4f6;
+  --color-card-bg: #ffffff;
+  --color-text-dark: #1f2937;
+  --color-text-medium: #6b7280;
+  --color-pending: #dc2626;
+  --color-paid: #059669;
+}
 * {
   margin: 0;
   padding: 0;
@@ -34,7 +45,7 @@ body {
 }
 
 .btn-primary {
-  background-color: #3b82f6;
+  background-color: var(--color-primary);
   color: white;
 }
 
@@ -91,21 +102,6 @@ body {
   text-align: center;
   padding: 20px;
   color: #6b7280;
-}
-
-
-
-
-
-:root {
-  --color-primary: #1d4ed8;
-  --color-primary-dark: #1e40af;
-  --color-background: #f3f4f6;
-  --color-card-bg: #ffffff;
-  --color-text-dark: #1f2937;
-  --color-text-medium: #6b7280;
-  --color-pending: #dc2626;
-  --color-paid: #059669;
 }
 
 .app-container {

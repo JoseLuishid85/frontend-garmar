@@ -2,7 +2,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://joseluishidalgo.com/licor/api',
+  //baseURL: 'https://joseluishidalgo.com/licor/api',
+  baseURL: 'http://localhost:4000/licor/api',
   headers: {
     'Content-Type': 'application/json',
   },
